@@ -1,0 +1,13 @@
+<schemalist>
+    <schema id="org.ascension.steemportal" path="/org/ascension/steemportal/">
+
+    <key name="wif" type="s">
+      <default >""</default>
+      <summary>Your Steem WIF</summary>
+      <description>
+        Stores your Steem WIF
+      </description>
+    </key>
+
+    </schema>
+</schemalist>
