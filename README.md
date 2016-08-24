@@ -1,4 +1,7 @@
 # steemportal
+
+https://github.com/l0k1-smirenski/steemportal
+
 A python3/Gtk+-3.0 based application for accesing and interacting with the
 Steem blockchain forum system. It uses Piston, from the user @xeroc, whose
 main page can be found here: http://piston.readthedocs.io/en/stable/
