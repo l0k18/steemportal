@@ -16,6 +16,8 @@ from piston.steem import Steem
 from piston import wallet as Wallet
 import time
 
+debugflag = True
+
 class steemportal(Gtk.Application):
     def __init__(self):
         Gtk.Application.__init__(self,
@@ -24,16 +26,22 @@ class steemportal(Gtk.Application):
         self.connect("activate", self.on_activate)
 
     def test_login (self, window, settings):
+        """
+
+        """
         wif = settings.get_string("wif")
         try:
-            steem_account = Steem(wif=wif)
+            self.steem_account = Steem(wif=wif)
         except Wallet.InvalidWifError:
-            self.enter_keys (window, settings)
+            if debugflag: print ("invalid wif")
+            return False
         else:
-            print ("wif accepted")
-            print (steem_account)
+            if debugflag:
+                print ("wif accepted")
+                print (self.steem_account)
+            return True
 
-    def on_loginentry_change (self, button, *data): # 
+    def on_loginentry_change (self, button, *data): #
         """
         parameters: wifentry, confirmbutton, settings
         If both the entry widgets contain the right amount of
@@ -43,19 +51,19 @@ class steemportal(Gtk.Application):
         wifentry = data[0]
         confirmbutton = data[1]
         settings = data[2]
-        
+
         wiflen = wifentry.get_buffer().get_length()
-       
+
         print ("change detected")
         if (wiflen > 32):
             wif = wifentry.get_buffer().get_text()
             settings.set_string ("wif", wif)
             confirmbutton.set_sensitive (True)
-            print ("new text is long enough")
+            if debugflag: print ("key is long enough")
         else:
             confirmbutton.set_sensitive (False)
 
-    def on_loginentry_confirm(self, entry, *data): 
+    def on_loginentry_confirm(self, entry, *data):
         """
         parameters: window, logingrid, settings
         When the OK button is pressed, next we query the Steem system to
@@ -64,13 +72,18 @@ class steemportal(Gtk.Application):
         window = data[0]
         logingrid = data[1]
         settings = data[2]
-        
+
         wif = settings.get_string ("wif")
         window.remove (logingrid)
         window.add (Gtk.Label (label="Checking Login Details..."))
         window.show_all ()
-        self.test_login (window, settings)
-        print ("key confirmed")
+        if self.test_login (window, settings):
+            if debugflag: print ("key tested valid")
+        else:
+            print ("key invalid")
+            window.set_title ("Invalid WIF, try again")
+            settings.set_string ("wif", "")
+            self.enter_keys (window, settings)
 
     def enter_keys (self, window, settings):
         """
@@ -88,9 +101,9 @@ class steemportal(Gtk.Application):
         logingrid.attach (Gtk.Label (label="password:"), 1, 2, 1, 1)
         logingrid.attach (wifinput, 2, 2, 1, 1)
         logingrid.attach (loginconfirmbutton, 1, 3, 2, 1)
-        wifinput.connect ("changed", 
-			self.on_loginentry_change,
-			wifinput, loginconfirmbutton, settings)
+        wifinput.connect ("changed",
+            self.on_loginentry_change,
+            wifinput, loginconfirmbutton, settings)
         loginconfirmbutton.connect ("clicked",
             self.on_loginentry_confirm, window, logingrid, settings)
         window.add (logingrid)
@@ -108,15 +121,20 @@ class steemportal(Gtk.Application):
         window.add(label)
         self.add_window(window)
         window.show_all()
-        settings = Gio.Settings("org.ascension.steemportal")
-        wif = settings.get_string("wif")
+        self.settings = Gio.Settings("org.ascension.steemportal")
+        wif = self.settings.get_string("wif")
+        print ("testing wif")
         if (wif == ""):
-            self.enter_keys (window, settings)
+            if debugflag: print ("no key stored in configuration")
+            self.enter_keys (window, self.settings)
         else:
-            self.test_login (window, settings)
+            if self.test_login (window, self.settings):
+                if debugflag: print ("login successful")
+            else:
+                self.enter_keys (window, self.settings)
 
 
 if __name__ == "__main__":
     app = steemportal()
     app.run(None)
-    
+
