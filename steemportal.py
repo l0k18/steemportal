@@ -126,6 +126,72 @@ class SPinit:
         self.window.show_all ()
 
 
+class SPmain:
+    """
+    This class is where the main, read-only part of the interface
+    is implemented
+    """
+    def __init__ (self, application):
+        """
+        Initialising code for interface
+        """
+        if debugflag: print ("initialising interface")
+        self.application = application
+        windowlist = application.get_windows ()
+        self.window = window = windowlist[0] #the app only has one
+        self.create_headerbar ()
+        window.set_title ("steemportal")
+        window.show_all ()
+
+    def create_button_from_name (self, icon_name):
+        button = Gtk.Button ()
+        button.set_image (
+            Gtk.Image.new_from_icon_name (icon_name,
+                Gtk.IconSize.BUTTON)
+            )
+        return button
+
+    def create_headerbar (self):
+        if debugflag: print ("creating headerbar")
+        window = self.window
+        self.headerbar = headerbar = Gtk.HeaderBar ()
+        headerbar.set_show_close_button (True)
+        window.set_titlebar (headerbar)
+        # Home button - this takes you to the page you set
+        # as the home location in the settings
+        self.homebutton = homebutton = self.create_button_from_name (
+            "go-home-symbolic")
+        headerbar.pack_start (homebutton)
+        # Refresh button - Reloads the current view
+        self.refreshbutton = refreshbutton = self.create_button_from_name (
+            "view-refresh-symbolic")
+        headerbar.pack_start (refreshbutton)
+        # Navigation buttons - steemportal keeps a log of pages you
+        # look at and allows you to go back and forward
+        # The two buttons are bundled into a box to give them
+        # the linked style
+        navbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        Gtk.StyleContext.add_class (navbox.get_style_context (),
+            "linked")
+        self.backbutton = backbutton = self.create_button_from_name (
+            "go-previous-symbolic")
+        self.forwardbutton = forwardbutton = self.create_button_from_name (
+            "go-next-symbolic")
+        navbox.add (backbutton)
+        navbox.add (forwardbutton)
+        headerbar.pack_start (navbox)
+        # Menu button - This accesses the context sensitive button
+        # for the page you are viewing
+        menubutton = self.menubutton = self.create_button_from_name (
+            "open-menu-symbolic")
+        headerbar.pack_end (menubutton)
+        # Copy Link button - This places the Steem address of the
+        # current view in the clipboard
+        self.copylinkbutton = copylinkbutton = self.create_button_from_name (
+            "edit-copy-symbolic")
+        headerbar.pack_end (copylinkbutton)
+
+
 class steemportal(Gtk.Application):
 
     def __init__(self):
@@ -138,15 +204,12 @@ class steemportal(Gtk.Application):
         """
         Open the window and check for a configured login
         """
-        piston = SPpiston ()
         window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
-        window.set_title("steemportal")
-        window.set_border_width(8)
-        window.set_position(Gtk.WindowPosition.CENTER)
-        label = Gtk.Label("steemportal - your steem, your feed")
-        window.add(label)
+        window.maximize ()
         self.add_window(window)
-        window.show_all()
+        launchinterface = SPmain (self)
+
+
 
         # The following code has been deactivated because write access
         # to account data must be implemented after read access
