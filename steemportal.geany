@@ -28,9 +28,12 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=1
+current_page=4
 FILE_NAME_0=261;None;0;EUTF-8;0;1;0;%2Fhome%2Fl0k1%2Fprojects%2Fsteemportal%2Fsteemportal.geany;0;4
-FILE_NAME_1=154;Python;0;EUTF-8;0;1;0;%2Fhome%2Fl0k1%2Fprojects%2Fsteemportal%2Fsteemportal.py;0;4
+FILE_NAME_1=183;Python;0;EUTF-8;0;1;0;%2Fhome%2Fl0k1%2Fprojects%2Fsteemportal%2Fsteemportal.py;0;4
+FILE_NAME_2=1055;XML;0;EUTF-8;0;1;0;%2Fhome%2Fl0k1%2Fprojects%2Fsteemportal%2Fsteemportal.gschema.xml;0;4
+FILE_NAME_3=3525;Markdown;0;EUTF-8;0;1;0;%2Fhome%2Fl0k1%2Fprojects%2Fsteemportal%2FREADME.md;0;4
+FILE_NAME_4=3117;Markdown;0;EUTF-8;0;1;0;%2Fhome%2Fl0k1%2Fprojects%2Fsteemportal%2FROADMAP.md;0;4
 
 [VTE]
 last_dir=/home/l0k1
