@@ -2,8 +2,9 @@
 # Fuck copyright. Here's your stinkin' licence: http://unlicense.org/
 # I made this first and the burden of proof is on you.
 #
-# l0k1
+# - l0k1
 #
+# Contact details for l0k1
 # steemit.com - https://steemit.com/@l0k1
 # bitmessage - BM-2cXWxTVaXJbNyMxv5tAjNg87xS98hrAg8P
 # torchat - xq6xcvqc2vy34qtx
@@ -16,6 +17,8 @@ from piston.steem import Steem
 from piston import wallet as Wallet
 import time
 
+# Set this to True to make a chatty log of actions by the code as it
+# runs
 debugflag = True
 
 
@@ -134,6 +137,10 @@ class SPmain:
     def __init__ (self, application):
         """
         Initialising code for interface
+        Imports application namespace from the application class
+        Imports the main window object into the local namespace
+        Creates header bar with navigation buttons
+        TODO: Open last or default home url
         """
         if debugflag: print ("initialising interface")
         self.application = application
@@ -152,6 +159,10 @@ class SPmain:
         return button
 
     def create_headerbar (self):
+        """
+        Creates the navigation headerbar for the interface using the
+        Gnome 3 standard design principles
+        """
         if debugflag: print ("creating headerbar")
         window = self.window
         self.headerbar = headerbar = Gtk.HeaderBar ()
@@ -195,6 +206,10 @@ class SPmain:
 class steemportal(Gtk.Application):
 
     def __init__(self):
+        """
+        This does the initial setup of the Gtk.Application and starts
+        the initial opening of the interface
+        """
         Gtk.Application.__init__(self,
             application_id="org.ascension.steemportal",
             flags=Gio.ApplicationFlags.FLAGS_NONE)
@@ -203,6 +218,7 @@ class steemportal(Gtk.Application):
     def on_activate(self, data=None):
         """
         Open the window and check for a configured login
+        Launches main interface
         """
         window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
         window.maximize ()
