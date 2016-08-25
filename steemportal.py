@@ -25,20 +25,21 @@ class steemportal(Gtk.Application):
             flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.connect("activate", self.on_activate)
 
-    def test_login (self, window, settings):
+    def test_login (self):
         """
-
+        Tests login by using the WIF login code stored in the dconf
+        database. Returns true if successful, and stores the piston
+        steem account object in the class namespace root.
         """
-        wif = settings.get_string("wif")
+        wif = self.settings.get_string("wif")
         try:
             self.steem_account = Steem(wif=wif)
         except Wallet.InvalidWifError:
             if debugflag: print ("invalid wif")
             return False
         else:
-            if debugflag:
-                print ("wif accepted")
-                print (self.steem_account)
+            if debugflag: print ("wif accepted")
+            self.window.set_title("steemportal")
             return True
 
     def on_loginentry_change (self, button, *data): #
@@ -50,14 +51,13 @@ class steemportal(Gtk.Application):
         """
         wifentry = data[0]
         confirmbutton = data[1]
-        settings = data[2]
 
         wiflen = wifentry.get_buffer().get_length()
 
         print ("change detected")
         if (wiflen > 32):
             wif = wifentry.get_buffer().get_text()
-            settings.set_string ("wif", wif)
+            self.settings.set_string ("wif", wif)
             confirmbutton.set_sensitive (True)
             if debugflag: print ("key is long enough")
         else:
@@ -69,69 +69,71 @@ class steemportal(Gtk.Application):
         When the OK button is pressed, next we query the Steem system to
         ensure the credentials are valid.
         """
-        window = data[0]
-        logingrid = data[1]
-        settings = data[2]
 
-        wif = settings.get_string ("wif")
-        window.remove (logingrid)
-        window.add (Gtk.Label (label="Checking Login Details..."))
-        window.show_all ()
-        if self.test_login (window, settings):
+        wif = self.settings.get_string ("wif")
+        self.window.remove (self.logingrid)
+        self.window.add (Gtk.Label (label="Checking Login Details..."))
+        self.window.show_all ()
+        if self.test_login ():
             if debugflag: print ("key tested valid")
+            self.start_interface()
         else:
-            print ("key invalid")
-            window.set_title ("Invalid WIF, try again")
-            settings.set_string ("wif", "")
-            self.enter_keys (window, settings)
+            if debugflag: print ("key invalid")
+            self.window.set_title ("Invalid WIF, try again")
+            self.settings.set_string ("wif", "")
+            self.enter_keys ()
 
-    def enter_keys (self, window, settings):
+    def enter_keys (self):
         """
         Change window content to prompt the user for userid and wif
         """
-        logingrid = Gtk.Grid()
-        child = window.get_child()
+        self.logingrid = Gtk.Grid()
+        child = self.window.get_child()
         if (child):
-            window.remove (child)
+            self.window.remove (child)
         wifinput = Gtk.Entry ()
         loginconfirmbutton = Gtk.Button (label="OK")
         loginconfirmbutton.set_sensitive (False)
-        logingrid.attach (Gtk.Label
+        self.logingrid.attach (Gtk.Label
             (label="Please enter your Steemit Password:"), 1, 1, 2, 1)
-        logingrid.attach (Gtk.Label (label="password:"), 1, 2, 1, 1)
-        logingrid.attach (wifinput, 2, 2, 1, 1)
-        logingrid.attach (loginconfirmbutton, 1, 3, 2, 1)
+        self.logingrid.attach (Gtk.Label (label="password:"), 1, 2, 1, 1)
+        self.logingrid.attach (wifinput, 2, 2, 1, 1)
+        self.logingrid.attach (loginconfirmbutton, 1, 3, 2, 1)
         wifinput.connect ("changed",
             self.on_loginentry_change,
-            wifinput, loginconfirmbutton, settings)
+            wifinput, loginconfirmbutton)
         loginconfirmbutton.connect ("clicked",
-            self.on_loginentry_confirm, window, logingrid, settings)
-        window.add (logingrid)
-        window.show_all ()
+            self.on_loginentry_confirm)
+        self.window.add (self.logingrid)
+        self.window.show_all ()
+
+    def start_interface (self):
+        self.window.maximize ()
 
     def on_activate(self, data=None):
         """
         Open the window and check for a configured login
         """
-        window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
-        window.set_title("steemportal")
-        window.set_border_width(8)
-        window.set_position(Gtk.WindowPosition.CENTER)
+        self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
+        self.window.set_title("steemportal")
+        self.window.set_border_width(8)
+        self.window.set_position(Gtk.WindowPosition.CENTER)
         label = Gtk.Label("steemportal - your steem, your feed")
-        window.add(label)
-        self.add_window(window)
-        window.show_all()
+        self.window.add(label)
+        self.add_window(self.window)
+        self.window.show_all()
         self.settings = Gio.Settings("org.ascension.steemportal")
         wif = self.settings.get_string("wif")
-        print ("testing wif")
+        if debugflag: print ("testing wif")
         if (wif == ""):
             if debugflag: print ("no key stored in configuration")
-            self.enter_keys (window, self.settings)
+            self.enter_keys ()
         else:
-            if self.test_login (window, self.settings):
+            if self.test_login ():
                 if debugflag: print ("login successful")
+                self.start_interface ()
             else:
-                self.enter_keys (window, self.settings)
+                self.enter_keys ()
 
 
 if __name__ == "__main__":

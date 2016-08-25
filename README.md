@@ -2,7 +2,7 @@
 
 https://github.com/l0k1-smirenski/steemportal
 
-A python3/Gtk+-3.0 based application for accesing and interacting with the
+A python3/Gtk+-3.0 based application for accessing and interacting with the
 Steem blockchain forum system. It uses Piston, from the user @xeroc, whose
 main page can be found here: http://piston.readthedocs.io/en/stable/
 
@@ -13,12 +13,12 @@ main page can be found here: http://piston.readthedocs.io/en/stable/
 This project is just beginning and I am going to spend a lot of time working
 on it while I have the opportunity. There is a lot of work being done on the
 Steem blockchain system, but the main official web portal's web interface is
-heavy and slow especially with long comment threads. 
+heavy and slow especially with long comment threads.
 
 #### Personalised Blocking of Posts by Users
 
 There is also absolutely no mechanism aside from when a user gets flagged so
-much they end up with zero or lower reputation score, they disappear from 
+much they end up with zero or lower reputation score, they disappear from
 the comment feed. The 'mute' mechanism does nothing but really highlight who
 you muted, just as pixellation, blurring, black boxes, beeps and silence in
 offensive content censorship systems actually draw attention to the supposed
@@ -28,18 +28,18 @@ the steemit.com website.
 #### Topic and Social Grouping
 
 The above two goals are primary, but after these are added and functional,
-I will be implementing a simple, small permissioned blockchain system 
+I will be implementing a simple, small permissioned blockchain system
 similar to Namecoin, except also with group membership moderation, and a
 mechanism based on secret shares to allow delegation similar to a board.
-https://en.wikipedia.org/wiki/Secret_sharing This blockchain will run as 
-part of this application, but there is no reason why it cannot be 
+https://en.wikipedia.org/wiki/Secret_sharing This blockchain will run as
+part of this application, but there is no reason why it cannot be
 stand-alone, although being so small there is no real reason for it to not
-be simply integrated into viewer applications. 
+be simply integrated into viewer applications.
 
-This system will allow you to filter posts according to the posters' 
-membership in the group, group administrators will be able to include and 
-exclude individual users based on their behaviour. It effectively should 
-enable multiple level hierarchic 'page management' functions as well. The 
+This system will allow you to filter posts according to the posters'
+membership in the group, group administrators will be able to include and
+exclude individual users based on their behaviour. It effectively should
+enable multiple level hierarchic 'page management' functions as well. The
 main goal, however, is to help group by subject and affinity, which will
 become more important the bigger the Steem community gets.
 
