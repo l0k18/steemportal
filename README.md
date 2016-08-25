@@ -56,10 +56,24 @@ Then, to run whatever has been written so far, you just run:
 
 I am still working on other elements. It uses the dconf registry system to
 store credentials and settings in an instantaneously active manner, and to
-persist sessions between launch, so there is a script to install the schema
-called **install_compile_schema.sh** which must be run as root or using sudo
-to place it in the right place. This adds a configuration branch you can see
-if you open dconf-editor and look for org.ascension.
+persist sessions between launch, so there is a script to install the schema:
+
+> sh install_compile_schema.sh
+
+This adds a configuration branch you can see
+if you open dconf-editor and look for org->ascension. It may be already
+executable, I am not sure if git preserves executable file attribute bits,
+if they are, you can do this instead:
+
+> ./install_compile_schemas.sh
+
+I advise also for you to set the default RPC endpoint in piston thusly:
+
+> piston set node wss://node.steem.ws
+
+This changes the default endpoint from this.piston.rocks to the
+load balanced clusters that are anycast-style nearest of several to
+where your point-of-presence is.
 
 ### Copyright, or lack thereof
 
