@@ -75,6 +75,11 @@ This changes the default endpoint from this.piston.rocks to the
 load balanced clusters that are anycast-style nearest of several to
 where your point-of-presence is.
 
+Of course, use whichever editor or IDE you want if you wish to edit the
+python scripts in this repository, but I recommend Geany, and because the
+configuration file is in the repository, it will automatically set tab
+sizes and the use of spaces to match the rest of the file.
+
 ### Copyright, or lack thereof
 
 I claim no copyright on this work, nor do I, by doing so, permit the
