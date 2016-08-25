@@ -42,19 +42,17 @@ class steemportal(Gtk.Application):
             self.window.set_title("steemportal")
             return True
 
-    def on_loginentry_change (self, button, *data): #
+    def on_loginentry_change (self, wifentry, *data): #
         """
-        parameters: wifentry, confirmbutton, settings
+        data[0] is the confirm button which we deactivate if the
+        field has insufficient characters in it
         If both the entry widgets contain the right amount of
         characters, then the confirm button is set as sensitive
         and can be clicked, and the data is placed into the dconf database
         """
-        wifentry = data[0]
-        confirmbutton = data[1]
-
+        confirmbutton = data[0]
         wiflen = wifentry.get_buffer().get_length()
-
-        print ("change detected")
+        if debugflag: print ("change detected")
         if (wiflen > 32):
             wif = wifentry.get_buffer().get_text()
             self.settings.set_string ("wif", wif)
@@ -63,13 +61,12 @@ class steemportal(Gtk.Application):
         else:
             confirmbutton.set_sensitive (False)
 
-    def on_loginentry_confirm(self, entry, *data):
+    def on_loginentry_confirm(self, entry):
         """
         parameters: window, logingrid, settings
         When the OK button is pressed, next we query the Steem system to
         ensure the credentials are valid.
         """
-
         wif = self.settings.get_string ("wif")
         self.window.remove (self.logingrid)
         self.window.add (Gtk.Label (label="Checking Login Details..."))
@@ -100,8 +97,7 @@ class steemportal(Gtk.Application):
         self.logingrid.attach (wifinput, 2, 2, 1, 1)
         self.logingrid.attach (loginconfirmbutton, 1, 3, 2, 1)
         wifinput.connect ("changed",
-            self.on_loginentry_change,
-            wifinput, loginconfirmbutton)
+            self.on_loginentry_change, loginconfirmbutton)
         loginconfirmbutton.connect ("clicked",
             self.on_loginentry_confirm)
         self.window.add (self.logingrid)
@@ -139,4 +135,3 @@ class steemportal(Gtk.Application):
 if __name__ == "__main__":
     app = steemportal()
     app.run(None)
-
