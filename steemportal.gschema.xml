@@ -25,5 +25,15 @@
       </description>
     </key>
 
+    <key name="lastviewed" type="s">
+        <default>""</default>
+        <summary>Last viewed steem URL</summary>
+        <description>
+            Log is kept in the configuration directory but the very
+            last URL followed will be stored here to speed up startup
+            so that session resume is implemented simply.
+        </description>
+    </key>
+
     </schema>
 </schemalist>
