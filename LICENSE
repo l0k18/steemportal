@@ -23,17 +23,3 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 
----
-
-Portions of this code are derived from work licenced under the GPLv3,
-from the mdpreview project which can be found here:
-
-https://github.com/fboender/mdpreview
-
-The text of the GPLv3 licence can be found here:
-
-http://www.gnu.org/licenses/
-
-This fulfills my obligation to make reference to GPL'd code, which I
-think should not be incompatible to the completely anti-copyright
-licence that this project is otherwise 'licenced' under.
