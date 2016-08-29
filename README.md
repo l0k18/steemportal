@@ -4,7 +4,9 @@ https://github.com/l0k1-smirenski/steemportal
 
 A python3 application for accessing and interacting with the Steem blockchain forum system. It uses Piston, from the user @xeroc, whose main page can be found here: http://piston.readthedocs.io/en/stable/ It also uses code from a port from the project 'mdpreview' which you can find here: https://github.com/fboender/mdpreview which is used to enable markdown previewing.
 
-The app is being written with a modular interface glue to select between interface frontends. The default will be Gtk3/GLib2. I invite other developers to write the other front ends - the modularised intermediate code is not written yet but once it is, the frontends will be able to link to the core. 
+The app is being written with a modular interface glue to select between interface frontends. The default will be Gtk3/GLib2. I invite other developers to write the other front ends - the modularised intermediate code is not written yet but once it is, the frontends will be able to link to the core.
+
+Apologies for the messy filesystem as this modularised architecture is put into place.
 
 ### Motivations for this project
 

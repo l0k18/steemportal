@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 #
-# filename.py
+# gtk..py
 #
-# component description 
+# Gtk+-3.0 interface frontend
+# Also requires GLib-2.0 and other related Gnome modules
 #
 # Here's your stinkin' licence: http://unlicense.org/
 #
@@ -14,4 +15,5 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
-
+def printmodulename ():
+    print ("Importing Gtk+-3.0 frontend module")

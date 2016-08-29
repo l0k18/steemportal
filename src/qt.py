@@ -14,4 +14,5 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
-
+def printmodulename ():
+    print ("Importing Qt frontend module")

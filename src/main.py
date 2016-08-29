@@ -14,9 +14,17 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
+debugflag = True
+
 import sys, os, argparse
 
 parser = argparse.ArgumentParser(description="Steem Blockchain Interface")
 parser.add_argument ('frontend', metavar='FRONTEND', type=str, nargs="?", default="gtk3", help="Interface frontend library to use, defaults to gtk3")
 args = parser.parse_args()
 
+print ("Interface chosen: " + args.frontend + "; importing " + args.frontend + ".py")
+
+frontend_obj = __import__ (args.frontend)
+globals () [args.frontend] = frontend_obj
+
+if debugflag: frontend_obj.printmodulename ()

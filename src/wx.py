@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 #
-# filename.py
+# wx.py
 #
-# component description 
+# WxWidgets frontend interface 
 #
 # Here's your stinkin' licence: http://unlicense.org/
 #
@@ -14,4 +14,5 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
-
+def printmodulename ():
+    print ("Importing WxWidgets frontend module")
