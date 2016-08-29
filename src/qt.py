@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 #
-# filename.py
+# qt.py
 #
-# component description 
+# Qt interface frontend module 
 # 
 # Here's your stinkin' licence: http://unlicense.org/
 #
