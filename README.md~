@@ -45,8 +45,6 @@ become more important the bigger the Steem community gets.
 
 ### Installation
 
-These instructions are somewhat outdated, the mechanism for isolating backend and frontend is being revamped. Watch this space.
-
 You must have python3 and install python3-pip, and then with these two pre-
 requisites, you can then install piston using:
 
