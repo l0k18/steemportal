@@ -24,15 +24,27 @@ debugflag = True
 import sys, os, argparse
 
 parser = argparse.ArgumentParser(description="Steem Blockchain Interface")
-parser.add_argument ('frontend', metavar='FRONTEND', type=str, nargs="?", default="gtk3", help="Interface frontend library to use, defaults to gtk3")
+parser.add_argument ('frontend', metavar='FRONTEND', type=str, nargs="?",
+    default="gtk3", 
+    help="Interface frontend library to use, defaults to gtk3")
+parser.add_argument ('config', metavar='CONFIG', type=str, nargs="?",
+    default="dconf", 
+    help="Configuration backend library to use, defaults to dconf")
 args = parser.parse_args()
 
-print ("Interface chosen: " + args.frontend + "; importing " + args.frontend + ".py")
+print ("Interface chosen: " + args.frontend + "; importing " +
+    args.frontend + ".py")
+print ("Config backend chosen: " + args.config + "; importing " +
+    args.config + ".py")
 
 frontend_obj = __import__ (args.frontend)
 globals () [args.frontend] = frontend_obj
+config_obj = __import__ (args.config)
+globals () [args.config] = config_obj
 
-if debugflag: frontend_obj.printmodulename ()
+if debugflag: 
+    frontend_obj.printmodulename ()
+    config_obj.printmodulename ()
 
 coremodule_obj = __import__ ("core")
 globals () ["core"] = coremodule_obj

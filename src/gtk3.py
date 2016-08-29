@@ -26,3 +26,13 @@ class SPinterface ():
     level class abstracts the calls so the core can remain agnostic about
     which frontend is being used.
     """
+    def __init__(self):
+    """
+    Interface initialisation - for gtk3/glib2 this includes creating a
+    Gtk.Application, opening the dconf configuration system (there will be
+    calls within this class that abstract this, so other interfaces can 
+    implement their own confiuration system, this one will be live, with no
+    'apply' buttons for anything, all configurations automatically apply). 
+    Actually, this requires another module system, since this is also
+    different between platforms and interface frameworks.
+    """
