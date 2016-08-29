@@ -17,3 +17,12 @@
 
 def printmodulename ():
     print ("Importing Gtk+-3.0 frontend module")
+    
+class SPinterface ():
+    """
+    Each distinct interface module will replicate the same class and core
+    module's interfacing calls. Each module can contain other classes and
+    functions, including imports, that are relevant to the module. This top
+    level class abstracts the calls so the core can remain agnostic about
+    which frontend is being used.
+    """

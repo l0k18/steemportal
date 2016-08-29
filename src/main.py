@@ -14,6 +14,11 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
+"""
+Main interface that works with the commandline interface, imports the 
+user selected interface module, and launches the core module
+"""
+
 debugflag = True
 
 import sys, os, argparse
@@ -28,3 +33,6 @@ frontend_obj = __import__ (args.frontend)
 globals () [args.frontend] = frontend_obj
 
 if debugflag: frontend_obj.printmodulename ()
+
+coremodule_obj = __import__ ("core")
+globals () ["core"] = coremodule_obj

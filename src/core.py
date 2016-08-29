@@ -14,4 +14,4 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
-
+print ("launching core module")
