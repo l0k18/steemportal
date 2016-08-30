@@ -27,12 +27,41 @@ class SPinterface ():
     which frontend is being used.
     """
     def __init__(self):
-    """
-    Interface initialisation - for gtk3/glib2 this includes creating a
-    Gtk.Application, opening the dconf configuration system (there will be
-    calls within this class that abstract this, so other interfaces can 
-    implement their own confiuration system, this one will be live, with no
-    'apply' buttons for anything, all configurations automatically apply). 
-    Actually, this requires another module system, since this is also
-    different between platforms and interface frameworks.
-    """
+        """
+        Interface initialisation
+        This function opens the window, calls back through the core, to 
+        get the configuration, to load the initial interface. 
+        
+        The configuration tells the interface what to set up in the initial
+        startup.
+        """
+        pass
+        
+    def open ():
+        """
+        This opens up the main window, places all the widgets, and from the
+        configuration, loads the content that belongs in them.
+        """
+        pass
+        
+    def persist ():
+        """
+        This collects the current interface status for shutdown of the app
+        and 
+        """
+        pass
+        
+    def config ():
+        """
+        This opens up the user configuration dialog for user configuration
+        of the interface and specifying the users' desired modes of 
+        operation
+        """
+        pass
+        
+    def open_url (urlstring):
+        """
+        This takes the parameter of a URL and queries the core to gather
+        the data required to display the new URL
+        """
+        pass

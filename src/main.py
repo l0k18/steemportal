@@ -23,28 +23,38 @@ debugflag = True
 
 import sys, os, argparse
 
-parser = argparse.ArgumentParser(description="Steem Blockchain Interface")
-parser.add_argument ('frontend', metavar='FRONTEND', type=str, nargs="?",
-    default="gtk3", 
-    help="Interface frontend library to use, defaults to gtk3")
-parser.add_argument ('config', metavar='CONFIG', type=str, nargs="?",
-    default="dconf", 
-    help="Configuration backend library to use, defaults to dconf")
-args = parser.parse_args()
+"""
+Commandline argument parsing
 
-print ("Interface chosen: " + args.frontend + "; importing " +
-    args.frontend + ".py")
-print ("Config backend chosen: " + args.config + "; importing " +
-    args.config + ".py")
+Commandline defines which frontend and which config backends are used by
+the app
 
-frontend_obj = __import__ (args.frontend)
-globals () [args.frontend] = frontend_obj
-config_obj = __import__ (args.config)
-globals () [args.config] = config_obj
+TODO: Add the ability to select these by the name of this script
+"""
+def handle_args ():
+    parser = argparse.ArgumentParser()
+    parser.add_argument ('frontend', 
+        metavar='FRONTEND', type=str, nargs="?",
+        default="gtk3", 
+        help="Interface frontend library to use, defaults to gtk3")
+    parser.add_argument ('config', metavar='CONFIG', type=str, nargs="?",
+        default="dconf", 
+        help="Configuration backend library to use, defaults to dconf")
+    args = parser.parse_args()
 
-if debugflag: 
-    frontend_obj.printmodulename ()
-    config_obj.printmodulename ()
+    frontend_obj = __import__ (args.frontend)
+    globals () [args.frontend] = frontend_obj
+    config_obj = __import__ (args.config)
+    globals () [args.config] = config_obj
 
-coremodule_obj = __import__ ("core")
-globals () ["core"] = coremodule_obj
+
+if __name__ == "__main__":
+    """
+    Load core module and begin application
+    """
+    handle_args ()    
+    
+    coremodule_obj = __import__ ("core")
+    globals () ["core"] = coremodule_obj
+
+    core.steemportal ()
