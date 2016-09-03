@@ -1,0 +1,21 @@
+<schemalist>
+    <schema id="org.ascension.steemportal" path="/org/ascension/steemportal/">
+
+        <key name="lastviewed" type="s">
+            <default>"trending"</default>
+            <summary>Last viewed URL</summary>
+            <description>
+                Last URL opened by steemportal
+            </description>
+        </key>
+
+        <key name="wif" type="s">
+            <default>""</default>
+            <summary>User's master key</summary>
+            <description>
+                User's Steem Master key
+            </description>
+        </key>
+
+    </schema>
+</schemalist>
