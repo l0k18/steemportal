@@ -19,12 +19,12 @@
 def printmodulename ():
     print ("Importing dconf configuration backend module")
     
-class config ():
+class SPconfig ():
     """
     This class defines all the backend functions for storing user settings,
     logs url history/manages log, and other settings
     """
-    def __init__():
+    def __init__(self, frontend_obj, core_obj):
         """
         opens up configuration backend and loads handler for log
         
@@ -32,6 +32,8 @@ class config ():
         appearance configuration and other interface settings
         """
         print ("initialising configuration")
+        self.gui = frontend_obj
+        self.core = core_obj
         
     def open ():
         """
@@ -54,18 +56,20 @@ class log ():
     
     def latest ():
         """
-        returns most recent url log entry
+        returns most recent log entry URL string
         """
         pass
         
     def back ():
         """
         set log cursor to previous log entry to current cursor location
+        return URL string
         """
         pass
         
     def forward ():
         """
-        set log cursor to next log entry, and erase an
+        set log cursor to next log entry
+        return URL string
         """
         pass

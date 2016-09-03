@@ -22,7 +22,7 @@ class steemportal ():
     the modules that deal with the implementation details.
     """
     
-    def __init__ (self):
+    def __init__ (self, frontend_obj, config_obj):
         """
         In this function, the configuration and interface classes are
         instantiated, the configuration inteface is established and linked
@@ -31,7 +31,9 @@ class steemportal ():
         Log is queried for last opened URL in history log
         """
         print ("starting steemportal")
-        
+        self.gui = frontend_obj.SPinterface (config_obj, self)
+        self.config = config_obj.SPconfig (frontend_obj, self)
+                
     def close ():
         """
         Shuts down interface, persists configuration
@@ -51,6 +53,13 @@ class steemportal ():
         
     def prev_url ():
         """
-        Query the config backend for the previous URL, and then open it
+        Move log position one URL back, and then display it
         """
         pass
+        
+    def next_url ():
+        """
+        move log position one URL forward, and then display it
+        """
+        
+    

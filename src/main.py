@@ -31,7 +31,11 @@ the app
 
 TODO: Add the ability to select these by the name of this script
 """
-def handle_args ():
+
+if __name__ == "__main__":
+    """
+    Load core module and begin application
+    """
     parser = argparse.ArgumentParser()
     parser.add_argument ('frontend', 
         metavar='FRONTEND', type=str, nargs="?",
@@ -45,16 +49,9 @@ def handle_args ():
     frontend_obj = __import__ (args.frontend)
     globals () [args.frontend] = frontend_obj
     config_obj = __import__ (args.config)
-    globals () [args.config] = config_obj
-
-
-if __name__ == "__main__":
-    """
-    Load core module and begin application
-    """
-    handle_args ()    
+    globals () [args.config] = config_obj  
     
     coremodule_obj = __import__ ("core")
     globals () ["core"] = coremodule_obj
 
-    core.steemportal ()
+    coremodule_obj.steemportal (frontend_obj, config_obj)
