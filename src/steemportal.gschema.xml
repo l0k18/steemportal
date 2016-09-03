@@ -16,6 +16,23 @@
                 User's Steem Master key
             </description>
         </key>
+        
+        <key name="history" type="s">
+            <default>""</default>
+            <summary>User's URL history</summary>
+            <description>
+                Contains a string with access times and Steem URLs
+            </description>
+        </key>        
+
+        <key name="interface" type="s">
+            <default>""</default>
+            <summary>Current interface state</summary>
+            <description>
+                Contains variable-value pairs of all parameters of current
+                UI state
+            </description>
+        </key>  
 
     </schema>
 </schemalist>

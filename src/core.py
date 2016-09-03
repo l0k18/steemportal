@@ -32,7 +32,7 @@ class steemportal ():
         """
         print ("starting steemportal")
         self.config = config_obj.SPconfig (frontend_obj, self)
-         self.gui = frontend_obj.SPinterface (config_obj, self)
+        self.gui = frontend_obj.SPinterface (config_obj, self)
                
     def close ():
         """
