@@ -61,6 +61,10 @@ mechanism for group founders that uses shared secrets to require
 x of y delegates to sign a founder-level action within a specified time
 period.
 
+### Groups
+
+This feature is going to be available from the core, so it will be integrated when it becomes available.
+
 The other advanced function planned is based on the SteemHordes group
 system, which will be a distributed chat system. This will initially
 only implement public chatrooms, but it will work using a lightweight
@@ -86,5 +90,6 @@ clients will also not advertise their location, or, this can be an
 additional mode. This eliminates the possibility of discovering which
 nodes have which user connected to them.
 
-The exact details of how this system will be implemented will be hashed
-out in more detail as development starts.
+### Email and Instant Messaging
+
+By building an announce channel for this chat system, users can propagate contact details, and nodes will log these into a database of steem username, steem public key, Bitmessage address and Instantmessage (The higher speed, lower message size limit bitmessage-like instant messaging system), and each node will thus be able to cache a full directory of users and keys. Nodes will advertise these, as well as updates, and for security they are signed messages so it can be proven the keys are controlled by the user claiming this ability. The same system as used by bitmessage for broadcast/subscriptions for open mail and chat propagation. When groups are created, the propagated messages for the groups will be sent out encrypted for the currently listed members. If bogus messages are received that come from non-members of a group, they will be dropped.
