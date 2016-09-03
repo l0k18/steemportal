@@ -38,18 +38,18 @@ class SPinterface ():
         print ("starting interface")
         self.config = config_obj
         self.core = core_obj
+        self.open ()
         
     def open ():
         """
         This opens up the main window, places all the widgets, and from the
         configuration, loads the content that belongs in them.
         """
-        pass
+        print ("opening graphical interface with saved configuration"
         
     def persist ():
         """
         This collects the current interface status for shutdown of the app
-        and 
         """
         pass
         
