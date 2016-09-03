@@ -45,11 +45,29 @@ if __name__ == "__main__":
         default="dconf", 
         help="Configuration backend library to use, defaults to dconf")
     args = parser.parse_args()
+    
+    print ("command name: " + parser.prog)
+    
+    frontend = args.frontend
+    config = args.config
+    # currently dconf is the only config backend - change these below when
+    # there is others bound into the executables that target other config
+    # backend systems. Thus the default applies unless specified
+    if (parser.prog == "steemportal-gtk"):
+        frontend = "gtk3"
+    if (parser.prog == "steemportal-qt"):
+        frontend = "qt"
+    if (parser.prog == "steemportal-wx"):
+        frontend = "wx"
+    if (parser.prog == "steemportal-web"):
+        frontend = "web"
+        
+    print ("interface: " + frontend + " config: " + config)
 
-    frontend_obj = __import__ (args.frontend)
-    globals () [args.frontend] = frontend_obj
-    config_obj = __import__ (args.config)
-    globals () [args.config] = config_obj  
+    frontend_obj = __import__ (frontend)
+    globals () [frontend] = frontend_obj
+    config_obj = __import__ (config)
+    globals () [config] = config_obj  
     
     coremodule_obj = __import__ ("core")
     globals () ["core"] = coremodule_obj
