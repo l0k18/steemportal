@@ -34,6 +34,7 @@ class SPconfig ():
         print ("initialising configuration")
         self.gui = frontend_obj
         self.core = core_obj
+        #self.settings = 
         
     def open ():
         """

@@ -45,7 +45,7 @@ class SPinterface ():
         This opens up the main window, places all the widgets, and from the
         configuration, loads the content that belongs in them.
         """
-        print ("opening graphical interface with saved configuration"
+        print ("opening graphical interface with saved configuration")
         
     def persist ():
         """
