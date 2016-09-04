@@ -41,8 +41,12 @@ class SPinterface (Gtk.Application):
     level class abstracts the calls so the core can remain agnostic about
     which frontend is being used, and likewise, the frontend can call the 
     configuration backend without knowing about how it is implemented.
+    
+    The Gtk.Application has its own set of methods, but where the core interacts
+    with it, will be with specific calls that are not from these methods, so
+    that other GUI libraries can be abstracted also.
     """
-    def __init__(self):
+    def __init__ (self):
         """
         Interface initialisation
         This function opens the window, calls back through the core, to 
@@ -55,23 +59,46 @@ class SPinterface (Gtk.Application):
             application_id="org.ascension.ascension",
             flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.connect("activate", self.on_activate)
+
+    def init (self, config):
+        """
+        Abstraction for command to open GUI. For Gtk+-3.0, this just maps to the
+        built in Gtk.Application.run () command. For other GUI libraries, this
+        will invoke the same. In this case, it triggers the activate hook.
+        """
+        # Import config object into this object's namespace
+        self.config = config
+        self.run ()
    
-    def on_activate(self, data=None):
+    def on_activate (self, data=None):
         """
         Activate Gtk.Application
         """
         debug ("Activating Gtk.Application", True)
         debug ("creating main window", False)
-        self.window = window = Gtk.Window (type=Gtk.WindowType.TOPLEVEL)
+        self.window = window = Gtk.ApplicationWindow ()
         debug ("binding window to Application", False)
         self.add_window (window)
+        winspec = self.config.get_interface ().split ()
+        window.resize (int(winspec[2]), int(winspec[3]))
+        window.move (int(winspec[0]), int(winspec [1]))
+        window.connect('delete-event', self.save_state)
         window.show_all ()
+            
+    def get_window_state (self):
+        winpos = self.window.get_position ()
+        winsize = self.window.get_size ()
+        return winpos[0], winpos[1], winsize[0], winsize[1]
         
-    def save_state ():
+    def save_state (self, *data):
         """
         This collects the current interface status for shutdown of the app
         """
-        pass
+        windowstate = self.get_window_state()
+        interfacestring = (str(windowstate[0]) + " " + str(windowstate[1]) + 
+            " " + str(windowstate[2]) + " "+ str(windowstate[3]))
+        print (interfacestring)
+        self.config.set_interface (interfacestring)
         
     def config_open ():
         """
