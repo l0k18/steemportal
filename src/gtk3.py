@@ -15,6 +15,11 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('WebKit', '3.0')
+from gi.repository import Gtk, WebKit, GObject, Gio
+
 def printmodulename ():
     print ("Importing Gtk+-3.0 frontend module")
     

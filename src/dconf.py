@@ -16,9 +16,9 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
-import sys, os, argparse, gi
+import gi
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, GObject, Gio
+from gi.repository import GObject, Gio
 
 def printmodulename ():
     print ("Importing dconf configuration backend module")
