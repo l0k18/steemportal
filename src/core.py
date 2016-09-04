@@ -14,8 +14,18 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
-print ("launching core module")
+import sys, os
 
+debugflag = True
+
+def debug (debugtext, header):
+    if debugflag:
+        if header: 
+            debugtext = ">>> " + debugtext
+        else:
+            debugtext = "    " + debugtext
+        print (debugtext)
+        
 class steemportal ():
     """
     This class handles the core functions, and passes the details onto 
@@ -30,11 +40,10 @@ class steemportal ():
         
         Log is queried for last opened URL in history log
         """
-        print ("starting steemportal")
-        config = self.config = config_obj.SPconfig ()
-        gui = self.gui = frontend_obj.SPinterface (config)
-        config.open ()
-        gui.open ()
+        debug ("starting steemportal", True)
+        self.frontend = frontend_obj.app
+        self.config = config_obj.config
+        self.frontend.run (None)
                
     def close ():
         """

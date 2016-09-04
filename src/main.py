@@ -21,6 +21,16 @@ user selected interface module, and launches the core module
 
 import sys, os, argparse
 
+debugflag = True
+
+def debug (debugtext, header):
+    if debugflag:
+        if header: 
+            debugtext = ">>> " + debugtext
+        else:
+            debugtext = "    " + debugtext
+        print (debugtext)
+
 """
 Commandline argument parsing
 
@@ -44,7 +54,7 @@ if __name__ == "__main__":
         help="Configuration backend library to use, defaults to dconf")
     args = parser.parse_args()
     
-    print ("command name: " + parser.prog)
+    debug ("command name: " + parser.prog, True)
     
     frontend = args.frontend
     config = args.config
@@ -60,7 +70,7 @@ if __name__ == "__main__":
     if (parser.prog == "steemportal-web"):
         frontend = "web"
         
-    print ("interface: " + frontend + " config: " + config)
+    debug ("interface: " + frontend + " config: " + config, False)
 
     frontend_obj = __import__ (frontend)
     globals () [frontend] = frontend_obj

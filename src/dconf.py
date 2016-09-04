@@ -15,10 +15,20 @@
 # bitmessage - BM-2cXWxTVaXJbNyMxv5tAjNg87xS98hrAg8P
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
-
+    
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import GObject, Gio
+
+debugflag = True
+
+def debug (debugtext, header):
+    if debugflag:
+        if header: 
+            debugtext = ">>> " + debugtext
+        else:
+            debugtext = "    " + debugtext
+        print (debugtext)
 
 def printmodulename ():
     print ("Importing dconf configuration backend module")
@@ -35,17 +45,18 @@ class SPconfig ():
         opens up user configuration database including blocklist,
         appearance configuration and other interface settings
         """
-        print ("initialising configuration")
+        debug ("initialising configuration", True)
+        self.open ()
         
     def open (self):
         """
         Opens up interface configuration and log
         """
         self.settings = Gio.Settings.new ("org.ascension.steemportal")
-        print ("last viewed: '" + self.get_lastviewed () + "'")
-        print ("wif: '" + self.get_wif () + "'")
-        print ("history: '" + self.get_history () + "'")
-        print ("interface: '" + self.get_interface () + "'")                
+        debug ("last viewed: '" + self.get_lastviewed () + "'", False)
+        debug ("wif: '" + self.get_wif () + "'", False)
+        debug ("history: '" + self.get_history () + "'", False)
+        debug ("interface: '" + self.get_interface () + "'", False)                
         
     def get_lastviewed (self):
         return self.settings.get_string ("lastviewed")
@@ -103,3 +114,6 @@ class log ():
         return URL string
         """
         pass
+        
+config = SPconfig ()
+        
