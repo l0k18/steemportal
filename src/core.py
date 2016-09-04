@@ -43,7 +43,7 @@ class steemportal ():
         debug ("starting steemportal", True)
         self.frontend = frontend_obj.app
         self.config = config_obj.config
-        self.frontend.run (None)
+        self.frontend.run ()
                
     def close ():
         """

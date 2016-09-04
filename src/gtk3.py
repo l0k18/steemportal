@@ -52,7 +52,7 @@ class SPinterface (Gtk.Application):
         startup.
         """
         Gtk.Application.__init__(self,
-            application_id="org.ascension.mdpreview-gtk3",
+            application_id="org.ascension.ascension",
             flags=Gio.ApplicationFlags.FLAGS_NONE)
         self.connect("activate", self.on_activate)
    
@@ -90,4 +90,3 @@ class SPinterface (Gtk.Application):
         
 debug ("initialising Gtk.Application", True)        
 app = SPinterface ()
-
