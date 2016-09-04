@@ -26,7 +26,7 @@ class SPinterface ():
     level class abstracts the calls so the core can remain agnostic about
     which frontend is being used.
     """
-    def __init__(self, config_obj, core_obj):
+    def __init__(self, config):
         """
         Interface initialisation
         This function opens the window, calls back through the core, to 
@@ -35,17 +35,17 @@ class SPinterface ():
         The configuration tells the interface what to set up in the initial
         startup.
         """
-        print ("starting interface")
-        self.config = config_obj
-        self.core = core_obj
-        self.open ()
+        print ("configuring interface")
+        self.config = config
         
-    def open ():
+    def open (self):
         """
         This opens up the main window, places all the widgets, and from the
         configuration, loads the content that belongs in them.
         """
         print ("opening graphical interface with saved configuration")
+        print ("interface settings string: '" + 
+            self.config.get_interface () + "'")
         
     def persist ():
         """

@@ -19,8 +19,6 @@ Main interface that works with the commandline interface, imports the
 user selected interface module, and launches the core module
 """
 
-debugflag = True
-
 import sys, os, argparse
 
 """

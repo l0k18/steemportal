@@ -16,6 +16,10 @@
 # torchat - xq6xcvqc2vy34qtx
 # email - l0k1@null.net
 
+import sys, os, argparse, gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, GObject, Gio
+
 def printmodulename ():
     print ("Importing dconf configuration backend module")
     
@@ -24,7 +28,7 @@ class SPconfig ():
     This class defines all the backend functions for storing user settings,
     logs url history/manages log, and other settings
     """
-    def __init__(self, frontend_obj, core_obj):
+    def __init__(self):
         """
         opens up configuration backend and loads handler for log
         
@@ -32,15 +36,40 @@ class SPconfig ():
         appearance configuration and other interface settings
         """
         print ("initialising configuration")
-        self.gui = frontend_obj
-        self.core = core_obj
-        #self.settings = 
         
-    def open ():
+    def open (self):
         """
         Opens up interface configuration and log
         """
-        pass
+        self.settings = Gio.Settings.new ("org.ascension.steemportal")
+        print ("last viewed: '" + self.get_lastviewed () + "'")
+        print ("wif: '" + self.get_wif () + "'")
+        print ("history: '" + self.get_history () + "'")
+        print ("interface: '" + self.get_interface () + "'")                
+        
+    def get_lastviewed (self):
+        return self.settings.get_string ("lastviewed")
+        
+    def set_lastviewed (self, lastviewed):
+        self.settings.set_string ("lastviewed", lastviewed)
+    
+    def get_wif (self):  
+        return self.settings.get_string ("wif")
+        
+    def set_wif (self, wif):
+        self.settings.set_string ("wif", wif)
+        
+    def get_history (self):
+        return self.settings.get_string ("history")
+        
+    def set_history (self, history):
+        self.settings.set_string ("history", history)
+        
+    def get_interface (self):
+        return self.settings.get_string ("interface")
+       
+    def set_interface (self, interface):
+        self.settings.set_string ("interface", interface)
     
 class log ():    
     """

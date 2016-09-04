@@ -30,7 +30,7 @@
             <summary>Current interface state</summary>
             <description>
                 Contains variable-value pairs of all parameters of current
-                UI state
+                UI state. Includes tabs and their URL and adjustment.
             </description>
         </key>  
 

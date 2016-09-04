@@ -31,8 +31,10 @@ class steemportal ():
         Log is queried for last opened URL in history log
         """
         print ("starting steemportal")
-        self.config = config_obj.SPconfig (frontend_obj, self)
-        self.gui = frontend_obj.SPinterface (config_obj, self)
+        config = self.config = config_obj.SPconfig ()
+        gui = self.gui = frontend_obj.SPinterface (config)
+        config.open ()
+        gui.open ()
                
     def close ():
         """
